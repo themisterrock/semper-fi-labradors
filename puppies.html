@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Puppies • Semper Fi Labradors</title>
+  <meta name="description" content="Meet our adorable Labrador puppies — raised with love and ready for their forever homes." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.ico" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container">
+      <div class="logo">
+        <img src="assets/paw-logo.png" alt="Semper Fi Labradors logo" />
+        Semper Fi Labradors
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="puppies.html">Puppies</a>
+        <a href="process.html">Process</a>
+        <a href="about.html">About</a>
+        <a href="apply.html">Apply</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div>
+        <h1>Meet Our Puppies 🐾</h1>
+        <p>Lovingly raised with an all-American spirit, our Labrador puppies are ready to become a part of your family.</p>
+      </div>
+      <div>
+        <img src="assets/puppies-hero.jpg" alt="Labrador puppies playing on a lawn" />
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="container" style="padding: 4rem 0;">
+    <h2>Available Puppies</h2>
+    <p>Use the filters below to explore our current litter and find your perfect companion.</p>
+
+    <!-- Filters -->
+    <div class="filters" style="display: flex; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+      <select id="filter-status" aria-label="Filter by availability">
+        <option value="">All Availability</option>
+        <option value="available">Available</option>
+        <option value="reserved">Reserved</option>
+        <option value="adopted">Adopted</option>
+      </select>
+      <select id="filter-sex" aria-label="Filter by sex">
+        <option value="">All Sexes</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <input type="search" id="search" placeholder="Search by name or color…" aria-label="Search puppies" />
+    </div>
+
+    <!-- Puppy Grid -->
+    <div class="grid" id="puppy-grid" aria-live="polite">
+      <!-- Cards will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <p class="small" style="margin-top: 1.5rem;">
+      All puppies come microchipped, vaccinated, wormed, and with a comfort blanket from mum. Vet records available on request.
+    </p>
+  </main>
+  <!-- Puppy Details Modal -->
+  <dialog id="puppy-modal" aria-labelledby="modal-title">
+    <div class="modal-head">
+      <h3 id="modal-title" style="margin: 0">Puppy Details</h3>
+      <button class="btn secondary" onclick="document.getElementById('puppy-modal').close()">Close</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="modal-gallery" id="modal-gallery"></div>
+      </div>
+      <div>
+        <h3 id="modal-name" style="margin: 0 0 6px"></h3>
+        <p class="small" id="modal-meta"></p>
+        <ul class="small" id="modal-list"></ul>
+        <div style="display:flex; gap:10px; margin-top:10px;">
+          <a href="apply.html" class="btn" id="modal-apply-btn">Enquire</a>
+          <button class="btn secondary" onclick="document.getElementById('puppy-modal').close()">Close</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© <span id="year"></span> Semper Fi Labradors — Proudly raising American Labradors 🇺🇸</p>
+    <p>Questions? <a href="mailto:info@semperfilabradors.com">info@semperfilabradors.com</a></p>
+  </footer>
+
+  <script>
+    const puppies = [
+      {
+        id:"liberty", name:"Liberty", sex:"female", status:"available", colour:"Black & White", dob:"2025-08-28", weight:"3.2 kg",
+        photos:[
+          "assets/liberty-1.jpg",
+          "assets/liberty-2.jpg",
+          "assets/liberty-3.jpg"
+        ],
+        notes:["Microchipped", "First vaccine booked", "Confident, people-focused", "Introduced to crate & car rides"]
+      },
+      {
+        id:"scout", name:"Scout", sex:"male", status:"reserved", colour:"Golden", dob:"2025-08-28", weight:"3.5 kg",
+        photos:[
+          "assets/scout-1.jpg",
+          "assets/scout-2.jpg",
+          "assets/scout-3.jpg"
+        ],
+        notes:["Reserved — meeting arranged", "Calm temperament", "Great with children"]
+      },
+      {
+        id:"daisy", name:"Daisy", sex:"female", status:"available", colour:"Chocolate", dob:"2025-08-28", weight:"3.1 kg",
+        photos:[
+          "assets/daisy-1.jpg",
+          "assets/daisy-2.jpg",
+          "assets/daisy-3.jpg"
+        ],
+        notes:["Curious explorer", "Loves puzzle toys", "Microchipped & wormed"]
+      },
+      {
+        id:"ranger", name:"Ranger", sex:"male", status:"adopted", colour:"Cream", dob:"2025-08-28", weight:"3.6 kg",
+        photos:[
+          "assets/ranger-1.jpg",
+          "assets/ranger-2.jpg",
+          "assets/ranger-3.jpg"
+        ],
+        notes:["Adopted — awaiting collection day"]
+      }
+    ];
+
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+
+    function renderGrid(){
+      const grid = $('#puppy-grid');
+      const q = $('#search').value.toLowerCase();
+      const fs = $('#filter-status').value;
+      const fx = $('#filter-sex').value;
+
+      const results = puppies.filter(p =>
+        (!fs || p.status === fs) && (!fx || p.sex === fx) &&
+        (p.name.toLowerCase().includes(q) || p.colour.toLowerCase().includes(q))
+      );
+
+      grid.innerHTML = results.map(p => `
+        <article class="card" data-id="${p.id}">
+          <div class="media" style="position: relative;">
+            <img src="${p.photos[0]}" alt="${p.name} the puppy" />
+            <span class="status ${p.status}">${p.status.charAt(0).toUpperCase() + p.status.slice(1)}</span>
+          </div>
+          <div class="body">
+            <h3>${p.name}</h3>
+            <div class="meta small">
+              <span>Sex: <strong>${cap(p.sex)}</strong></span><br>
+              <span>Colour: <strong>${p.colour}</strong></span><br>
+              <span>DOB: <strong>${formatDate(p.dob)}</strong></span><br>
+              <span>Weight: <strong>${p.weight}</strong></span>
+            </div>
+          </div>
+          <div class="actions" style="padding: 1rem;">
+            <button class="btn secondary" onclick="openModal('${p.id}')">Details</button>
+            <a class="btn" href="apply.html?puppy=${encodeURIComponent(p.name)}">Apply</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+    function formatDate(iso){
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { day:'2-digit', month:'short', year:'numeric' });
+    }
+
+    function openModal(id){
+      const p = puppies.find(x => x.id === id);
+      if (!p) return;
+      $('#modal-title').textContent = 'Meet ' + p.name;
+      $('#modal-name').textContent = `${p.name} • ${cap(p.sex)} • ${cap(p.status)}`;
+      $('#modal-meta').textContent = `Colour: ${p.colour} • DOB: ${formatDate(p.dob)} • Weight: ${p.weight}`;
+      $('#modal-list').innerHTML = p.notes.map(n => `<li>${n}</li>`).join('');
+      $('#modal-gallery').innerHTML = p.photos.map(src => `<img src="${src}" alt="${p.name} gallery image" />`).join('');
+      $('#modal-apply-btn').href = `apply.html?puppy=${encodeURIComponent(p.name)}`;
+      $('#puppy-modal').showModal();
+    }
+
+    // Filters
+    ['#filter-status', '#filter-sex', '#search'].forEach(sel => {
+      $(sel).addEventListener('input', renderGrid);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderGrid();
+  </script>
+</body>
+</html>

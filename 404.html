@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coming Soon • Semper Fi Labradors</title>
+  <meta name="description" content="The page you’re looking for is on the way — or doesn’t exist yet. Return home to explore Semper Fi Labradors." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.ico" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container">
+      <div class="logo">
+        <img src="assets/paw-logo.png" alt="Semper Fi Labradors logo" />
+        Semper Fi Labradors
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="puppies.html">Puppies</a>
+        <a href="process.html">Process</a>
+        <a href="about.html">About</a>
+        <a href="apply.html">Apply</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="text-align:center; padding:6rem 0;">
+    <div class="container">
+      <h1>Coming Soon 🇺🇸</h1>
+      <p style="color:rgba(255,255,255,0.9); max-width:700px; margin:0 auto 2rem;">
+        The page you’re looking for isn’t ready yet — or it might not exist. But don’t worry, our Labradors are always here for you!
+      </p>
+      <img src="assets/coming-soon.jpg" alt="Labrador puppy sitting proudly" style="max-width:400px; margin:2rem auto; border-radius:20px; box-shadow: var(--shadow);" />
+      <div style="margin-top: 2rem;">
+        <a href="index.html" class="btn">Return Home</a>
+        <a href="puppies.html" class="btn secondary">View Puppies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© <span id="year"></span> Semper Fi Labradors — Proudly raising American Labradors 🇺🇸</p>
+    <p>Questions? <a href="mailto:info@semperfilabradors.com">info@semperfilabradors.com</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

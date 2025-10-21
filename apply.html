@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply for Adoption • Semper Fi Labradors</title>
+  <meta name="description" content="Apply to adopt a Semper Fi Labrador puppy — raised with love and ready to join your family." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.ico" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container">
+      <div class="logo">
+        <img src="assets/paw-logo.png" alt="Semper Fi Labradors logo" />
+        Semper Fi Labradors
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="puppies.html">Puppies</a>
+        <a href="process.html">Process</a>
+        <a href="about.html">About</a>
+        <a href="apply.html">Apply</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div>
+        <h1>Apply to Adopt a Semper Fi Labrador 🐶🇺🇸</h1>
+        <p>We’re excited to learn more about you and help match you with the perfect puppy. Complete the form below and we’ll be in touch soon.</p>
+      </div>
+      <div>
+        <img src="assets/apply-hero.jpg" alt="Happy Labrador puppy ready for adoption" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM SECTION -->
+  <main class="container" style="padding: 4rem 0;">
+    <h2>Adoption Enquiry Form</h2>
+    <p>Please complete the form below. The more information you can provide, the better we can match you with your future companion.</p>
+
+    <form action="https://formspree.io/f/your-form-id" method="POST">
+      <div>
+        <label>Full Name
+          <input type="text" name="name" required autocomplete="name" />
+        </label>
+      </div>
+      <div>
+        <label>Email Address
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+      </div>
+      <div>
+        <label>Phone Number
+          <input type="tel" name="phone" required autocomplete="tel" />
+        </label>
+      </div>
+      <div>
+        <label>Location (City & State)
+          <input type="text" name="location" />
+        </label>
+      </div>
+
+      <div class="full">
+        <label>Which puppy are you enquiring about?
+          <select name="puppy" id="puppy-select">
+            <option value="General enquiry">General enquiry</option>
+            <option value="Liberty">Liberty</option>
+            <option value="Scout">Scout</option>
+            <option value="Daisy">Daisy</option>
+            <option value="Ranger">Ranger</option>
+          </select>
+        </label>
+      </div>
+
+      <div>
+        <label>Home Type
+          <select name="home">
+            <option value="House with yard">House with yard</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+      </div>
+
+      <div>
+        <label>Experience with Dogs
+          <select name="experience">
+            <option value="First-time owner">First-time owner</option>
+            <option value="Owned dogs before">Owned dogs before</option>
+            <option value="Experienced owner">Experienced owner</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="full">
+        <label>Your Message
+          <textarea name="message" placeholder="Tell us about your lifestyle, work hours, yard security, other pets, etc."></textarea>
+        </label>
+      </div>
+
+      <div class="full">
+        <label>
+          <input type="checkbox" name="consent" required />
+          I consent to my data being used to respond to this enquiry.
+        </label>
+      </div>
+
+      <div class="full" style="display:flex; gap:1rem; align-items:center;">
+        <button class="btn" type="submit">Submit Application</button>
+        <button class="btn secondary" type="reset">Reset</button>
+      </div>
+
+      <input type="hidden" name="_redirect" value="thank-you.html" />
+    </form>
+  </main>
+  <!-- FOOTER -->
+  <footer>
+    <p>© <span id="year"></span> Semper Fi Labradors — Proudly raising American Labradors 🇺🇸</p>
+    <p>Questions? <a href="mailto:info@semperfilabradors.com">info@semperfilabradors.com</a></p>
+  </footer>
+
+  <script>
+    // Auto-fill puppy from query string if arriving from puppies.html
+    const params = new URLSearchParams(window.location.search);
+    const puppyParam = params.get('puppy');
+    if (puppyParam) {
+      document.getElementById('puppy-select').value = puppyParam;
+    }
+
+    // Update footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
