@@ -491,3 +491,32 @@ footer a:hover {
     color: #bfe9ce;
   }
 }
+
+/* Smooth entrance animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply to all gallery cards */
+.gallery-animate .card {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Add a slight delay between each */
+.gallery-animate .card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.gallery-animate .card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.gallery-animate .card:nth-child(3) {
+  animation-delay: 0.6s;
+}
